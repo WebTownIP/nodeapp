@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
 const Schema = mongoose.Schema;
 
 const AuthorSchema = new Schema({
@@ -8,7 +9,9 @@ const AuthorSchema = new Schema({
       type: String,
       required: true,
       min: [3, 'Username should >=3'],
-      index: { unique: true }
+      index: {
+        unique: true
+      }
     },
     password: {
       type: String,
@@ -31,6 +34,11 @@ const AuthorSchema = new Schema({
       type: Boolean,
       default: false
     }
+});
+
+AuthorSchema.pre('save', function(next) {
+  this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10), null);
+  next();
 });
 
 module.exports = mongoose.model('Author', AuthorSchema);

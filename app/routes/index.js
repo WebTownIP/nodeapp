@@ -1,11 +1,17 @@
 'use strict';
 
 const router = require('express').Router();
-require('./authorRouter')(router);
+const isAuthenticated = require('../services/authService.js').isAuthenticated;
 
-router.get('/', function(req, res) {
-    console.log(req.sessionID)
-    res.json(req.sessionId);   
-});
+module.exports = (passport) => {
 
-module.exports = router;
+  router.all(/^\/v1\/.*$/, isAuthenticated, function(req, res, next){
+    next();
+  })
+
+  require('./authRouter')(router, passport);
+  require('./authorRouter')(router);
+  require('./articleRouter')(router);
+
+  return router;
+};
