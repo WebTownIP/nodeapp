@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose = require('mongoose');
+const mongoose = require('../services/dbService');
 const bcrypt = require('bcrypt-nodejs');
 const Schema = mongoose.Schema;
 

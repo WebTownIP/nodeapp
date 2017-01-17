@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose = require('mongoose');
+const mongoose = require('../services/dbService');
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
@@ -15,11 +15,15 @@ const ArticleSchema = new Schema({
 });
 
 ArticleSchema.pre('save', function(next) {
-  if (!this._id) {
+  if (this.isNew) {
     this.cratedAt = new Date();
   }
   this.updatedAt = new Date();
   next();
+});
+
+ArticleSchema.pre('update', function() {
+  this.update({}, {$set: {updatedAt: new Date()}});
 });
 
 module.exports = mongoose.model('Article', ArticleSchema);

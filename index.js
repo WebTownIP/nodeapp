@@ -10,12 +10,6 @@ const flash = require('connect-flash');
 const passport = require('passport');
 require('./app/authenticate')(passport);
 
-const mongoose = require('mongoose');
-const mongooseConf = require('./app/config/dbConf');
-
-mongoose.connect(
-  `mongodb://${mongooseConf.username}:${mongooseConf.password}@${mongooseConf.uri}:${mongooseConf.port}/${mongooseConf.dbName}`);
-
 const app = express();
 
 app

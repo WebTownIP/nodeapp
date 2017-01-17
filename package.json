@@ -9,6 +9,7 @@
   "author": "mikita_siadykh@epam.com",
   "license": "ISC",
   "devDependencies": {
+    "bluebird": "^3.4.7",
     "body-parser": "1.15.2",
     "express": "4.14.0",
     "express-restify-mongoose": "4.1.3",
