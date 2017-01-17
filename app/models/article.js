@@ -7,7 +7,7 @@ const ArticleSchema = new Schema({
     title: String,
     body: String,
     author: {
-      type: String,
+      email: String,
       _id: String
     },
     cratedAt: Date,
@@ -15,7 +15,6 @@ const ArticleSchema = new Schema({
 });
 
 ArticleSchema.pre('save', function(next) {
-  console.log('sadsasda')
   if (!this._id) {
     this.cratedAt = new Date();
   }

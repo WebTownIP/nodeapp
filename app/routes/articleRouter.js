@@ -5,7 +5,6 @@ const Article = require('../models/article');
 
 let conf = require('../config/restifyConf');
 conf.preCreate = function(req, res, next) {
-  console.log(req)
   req.body.author = {
     email: req.user.email,
     _id: req.user._id
